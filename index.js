@@ -23,6 +23,9 @@ app.use(cors(Option));
 app.use(morgan('dev'))
 app.use(route);
 app.use('/Images', express.static('./Images'))
+app.use('/', (req, res) => {
+    res.send('Accueil back')
+})
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
