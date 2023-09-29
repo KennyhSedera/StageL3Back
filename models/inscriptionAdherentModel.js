@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const inscription = sequelize.define("InscriptionAdherent", {
+    const inscription = sequelize.define("inscriptionadherent", {
         id_InscritAdh: {
             type: Sequelize.STRING,
             primaryKey: true

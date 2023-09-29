@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const type = sequelize.define("TypeAdherent", {
+    const type = sequelize.define("typeadherent", {
         id_TypeAdh: {
             type: Sequelize.INTEGER,
             primaryKey: true,

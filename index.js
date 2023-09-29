@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const route = require('./routes/routes');
-const { sequelize } = require('./models/index');
+// const { sequelize } = require('./models/index');
 const PORT = 1142;
 
 app.set('views', path.join(__dirname, 'views'));
@@ -27,8 +27,8 @@ app.use('/', (req, res) => {
     res.send('Accueil back')
 })
 
-sequelize.sync().then(() => {
+// sequelize.sync().then(() => {
     app.listen(PORT, () => {
         console.log(`Serveur running sur le port: http://localhost:${PORT}`);
     })
-})
+// })

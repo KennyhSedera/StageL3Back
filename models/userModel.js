@@ -4,7 +4,7 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 // Creation Table User
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("Users", {
+    const User = sequelize.define("users", {
         id_user: {
             type: Sequelize.INTEGER,
             primaryKey: true,
