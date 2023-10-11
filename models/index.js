@@ -37,6 +37,7 @@ db.adherent = require('./adherentModel')(sequelize, Sequelize);
 db.emprunt = require('./empruntModel')(sequelize, Sequelize);
 db.inscription = require('./inscriptionAdherentModel')(sequelize, Sequelize);
 db.typeAdh = require('./typeAdherentModel')(sequelize, Sequelize);
+db.retour = require('./livreRetour')(sequelize, Sequelize);
 
 db.adherent.hasMany(db.inscription, { foreignKey: 'id_Adh' });
 db.inscription.belongsTo(db.adherent, { foreignKey: 'id_Adh' });
@@ -44,8 +45,11 @@ db.inscription.belongsTo(db.adherent, { foreignKey: 'id_Adh' });
 db.typeAdh.hasMany(db.inscription, { foreignKey: 'id_TypeAdh' });
 db.inscription.belongsTo(db.typeAdh, { foreignKey: 'id_TypeAdh' });
 
-db.adherent.hasMany(db.emprunt, { foreignKey: 'id_Adh' });
-db.emprunt.belongsTo(db.adherent, { foreignKey: 'id_Adh' });
+db.inscription.hasMany(db.emprunt, { foreignKey: 'id_AdhInsc' });
+db.emprunt.belongsTo(db.inscription, { foreignKey: 'id_AdhInsc' });
+
+db.emprunt.hasMany(db.retour, { foreignKey: 'id_Emprunt' });
+db.retour.belongsTo(db.emprunt, { foreignKey: 'id_Emprunt' });
 
 db.livre.hasMany(db.emprunt, { foreignKey: 'id_Livre' });
 db.emprunt.belongsTo(db.livre, { foreignKey: 'id_Livre' });

@@ -43,6 +43,15 @@ exports.create = CreateLivre
 exports.upload = [upload.single('photo_livre'), success];
 
 exports.getAll = (req, res) => {
+    livre.findAll({group:['titre_livre']})
+        .then((result) => {
+            res.send({ livres: result });
+        }).catch((err) => {
+            res.send(err.message || 'Une erreur se produit.');
+        });
+}
+
+exports.getAllExp = (req, res) => {
     livre.findAll()
         .then((result) => {
             res.send({ livres: result });
@@ -91,6 +100,14 @@ exports.count = (req, res) => {
 }
 exports.countLivre = (req, res) => {
     livre.count()
+        .then((result) => {
+            res.send({ total: result });
+        }).catch((err) => {
+            res.send({ error: err.message });
+        });
+}
+exports.countEmprunt = (req, res) => {
+    livre.count({where:{status_livre:'Emprunter'}})
         .then((result) => {
             res.send({ total: result });
         }).catch((err) => {

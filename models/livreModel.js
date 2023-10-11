@@ -49,6 +49,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
+        status_livre: {
+            type: Sequelize.STRING,
+            defaultValue:'Dispo'
+        }
     },
         {
             freezeTableName: true,

@@ -12,6 +12,9 @@ module.exports = (sequelize, Sequelize) => {
         fin_InscritAdh: {
             type: Sequelize.DATE,
             allowNull: false
+        },
+        fraisInscritAdh: {
+            type: Sequelize.INTEGER,
         }
     }, {
         freezeTableName: true,

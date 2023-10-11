@@ -9,6 +9,8 @@ route.put('/livre/:id', livres.update)
 route.delete('/livre/:id', livres.delete)
 route.get('/livreCountByEmplacement', livres.count)
 route.get('/livreCount', livres.countLivre)
+route.get('/totalEmprunt', livres.countEmprunt)
+route.get('/livreExp', livres.getAllExp)
 
 const adherents = require('../controllers/adherentController')
 route.post('/adherent', adherents.create)

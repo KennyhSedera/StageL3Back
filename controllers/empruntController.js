@@ -1,9 +1,23 @@
-const { emprunt } = require("../models/index")
+const { emprunt, livre } = require("../models/index")
 
 exports.create = (req, res) => {
-    emprunt.create(req.body)
+    var d = new Date;
+    d.setDate(d.getDate() + parseInt(req.body.duree_Emprunt));
+    const body = {
+        id_Livre: req.body.id_Livre,
+        date_Emprunt: req.body.date_Emprunt,
+        duree_Emprunt: req.body.duree_Emprunt,
+        retour_Emprunt: d,
+        id_AdhInsc: req.body.id_AdhInsc,
+    }
+    emprunt.create(body)
         .then(() => {
-            res.send({ succee: 'Nouveau emprunt ajoutée avec succèe.' });
+            livre.update({ status_livre: 'Emprunter' }, { where: { id_livre: req.body.id_Livre } })
+            .then(() => {
+                res.send({ succee: 'Nouveau emprunt ajoutée avec succèe.' });
+            }).catch((err) => {
+                res.send({ error: err.message || 'Une erreur se produit.' });
+            });
         }).catch((err) => {
             res.send({ error: err.message || 'Une erreur se produit.' });
         });
