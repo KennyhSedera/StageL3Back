@@ -39,6 +39,10 @@ module.exports = (sequelize, Sequelize) => {
         lieunaiss_Adh: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+        status: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
         }
     }, {
         freezeTableName: true,

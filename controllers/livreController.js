@@ -114,3 +114,11 @@ exports.countEmprunt = (req, res) => {
             res.send({ error: err.message });
         });
 }
+exports.getAllLivreDispo = (req, res) => {
+    livre.findAll({where:{status_livre:'Dispo'}})
+        .then((result) => {
+            res.send({ livres: result });
+        }).catch((err) => {
+            res.send({ error: err.message });
+        });
+}

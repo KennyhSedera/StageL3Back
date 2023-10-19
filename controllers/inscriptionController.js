@@ -1,4 +1,4 @@
-const { inscription } = require("../models/index")
+const { inscription, adherent, typeAdh } = require("../models/index")
 
 exports.create = (req, res) => {
     inscription.create(req.body)
@@ -9,7 +9,19 @@ exports.create = (req, res) => {
         });
 }
 exports.getAll = (req, res) => {
-    inscription.findAll()
+    inscription.findAll({
+        include: [
+        {model: adherent, attributes: [
+                'nom_Adh',
+                'prenom_Adh',
+                'adresse_Adh',
+                'genre_Adh',
+                'adresse_Adh',
+                'tel_Adh',
+                'photo_Adh'
+            ]
+        }, {model:typeAdh}]
+    })
         .then((result) => {
             res.send({ inscriptions: result });
         }).catch((err) => {
@@ -17,7 +29,10 @@ exports.getAll = (req, res) => {
         });
 }
 exports.findOne = (req, res) => {
-    inscription.findOne({ where: { id_inscription: req.params.id } })
+    inscription.findOne({
+        where: { id_InscritAdh: req.params.id },
+        include:[{model: adherent}]
+    })
         .then((result) => {
             res.send({ inscription: result })
         }).catch((err) => {
@@ -25,7 +40,7 @@ exports.findOne = (req, res) => {
         });
 }
 exports.update = (req, res) => {
-    inscription.update(req.body, { where: { id_inscription: req.params.id } })
+    inscription.update(req.body, { where: { id_InscritAdh: req.params.id } })
         .then((result) => {
             res.send({ succee: 'inscription modifiée avec succèe.' })
         }).catch((err) => {
@@ -33,7 +48,7 @@ exports.update = (req, res) => {
         });
 }
 exports.delete = (req, res) => {
-    inscription.destroy({ where: { id_inscription: req.params.id } })
+    inscription.destroy({ where: { id_InscritAdh: req.params.id } })
         .then((result) => {
             res.send({ succee: 'inscription supprimée avec succèe.' })
         }).catch((err) => {

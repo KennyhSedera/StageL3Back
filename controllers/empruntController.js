@@ -1,11 +1,11 @@
-const { emprunt, livre } = require("../models/index")
+const { emprunt, livre, inscription, adherent } = require("../models/index")
 
 exports.create = (req, res) => {
     var d = new Date;
     d.setDate(d.getDate() + parseInt(req.body.duree_Emprunt));
     const body = {
         id_Livre: req.body.id_Livre,
-        date_Emprunt: req.body.date_Emprunt,
+        date_Emprunt: new Date,
         duree_Emprunt: req.body.duree_Emprunt,
         retour_Emprunt: d,
         id_AdhInsc: req.body.id_AdhInsc,
@@ -23,7 +23,14 @@ exports.create = (req, res) => {
         });
 }
 exports.getAll = (req, res) => {
-    emprunt.findAll()
+    emprunt.findAll({
+        include: [
+            { model: livre, attributes: ['titre_livre', 'photo_livre', 'auteur_livre'] },
+            {
+                model: inscription, attributes: ['id_InscritAdh'],
+                include: [{ model: adherent, attributes:['nom_Adh', 'prenom_Adh', 'photo_Adh'] }]
+            }]
+    })
         .then((result) => {
             res.send({ emprunts: result });
         }).catch((err) => {
