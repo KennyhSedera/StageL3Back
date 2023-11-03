@@ -1,4 +1,4 @@
-const { emprunt, livre, inscription, adherent } = require("../models/index")
+const { emprunt, livre, inscription, adherent, Sequelize } = require("../models/index")
 
 exports.create = (req, res) => {
     var d = new Date;
@@ -68,4 +68,25 @@ exports.countEmprunt = (req, res) => {
         }).catch((err) => {
             res.send({ error: err.message });
         });
+}
+exports.empruntEnCours = (req, res) => {
+    const date = new Date()
+    emprunt.findAll({
+        where: {
+            retour_Emprunt: {
+                [Sequelize.Op.gt]:date
+            }
+        },
+        include: [
+            { model: livre, attributes: ['titre_livre', 'photo_livre', 'auteur_livre'] },
+            {
+                model: inscription, attributes: ['id_InscritAdh'],
+                include: [{ model: adherent, attributes:['nom_Adh', 'prenom_Adh', 'photo_Adh'] }]
+            }]
+    })
+    .then((result) => {
+        res.send({emprunts:result})
+    }).catch((err) => {
+        res.send({error:err.message})
+    });
 }

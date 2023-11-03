@@ -31,7 +31,7 @@ exports.getAll = (req, res) => {
 exports.findOne = (req, res) => {
     inscription.findOne({
         where: { id_InscritAdh: req.params.id },
-        include:[{model: adherent}]
+        include:[{model: adherent}, {model:typeAdh}]
     })
         .then((result) => {
             res.send({ inscription: result })

@@ -34,8 +34,24 @@ const create = (req, res) => {
 const CreateUser = [upload.single('profile'), create]
 exports.signup = CreateUser
 
+var Promise = require('bluebird');
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 exports.signin = (req, res) => {
-    
+    user.findOne({ where: { user_email: req.body.email } })
+    .then((data) => {
+        if (data) {
+            var passwordIsValid = bcrypt.compareSync( req.body.password, data.password );
+            if (passwordIsValid) {
+                res.send({user:data})
+            } else {
+                res.send({ error: "Le mot de passe que vous avez entrer est incorrect !" });
+            }
+        } else {
+            res.send({error:'Verifier l\'adresse email que vous avez entrer !'})
+        }
+    }).catch((err) => {
+        res.send(err.message)
+    });
 }
 
 exports.getAll = (req, res) => {
@@ -69,4 +85,16 @@ exports.delete = (req, res) => {
         }).catch((err) => {
             res.send({ error: err.message || 'Une erreur se produit.' })
         });
+}
+exports.verifiEmail = (req, res) => {
+    user.findOne({ where: { user_email: req.body.email } })
+    .then((data) => {
+        if (data) {
+            res.send({error:'Cette adresse email est déjà utilisée!'})
+        } else {
+            res.send({succee:'Nouvelle adresse email!'})
+        }
+    }).catch((err) => {
+        res.send(err.message)
+    });
 }

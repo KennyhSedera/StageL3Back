@@ -1,6 +1,6 @@
 const multer = require("multer")
 const path = require("path")
-const { adherent } = require("../models/index")
+const { adherent, Sequelize, sequelize } = require("../models/index")
 
 
 // Stockage des photos
@@ -56,7 +56,7 @@ exports.getAll = (req, res) => {
         });
 }
 exports.findOne = (req, res) => {
-    adherent.findOne({ where: { id_adherent: req.params.id } })
+    adherent.findOne({ where: { id_Adh: req.params.id } })
         .then((result) => {
             res.send({ adherent: result });
         }).catch((err) => {
@@ -64,7 +64,7 @@ exports.findOne = (req, res) => {
         });
 }
 exports.update = (req, res) => {
-    adherent.update(req.body, { where: { id_adherent: req.params.id } })
+    adherent.update(req.body, { where: { id_Adh: req.params.id } })
         .then((result) => {
             res.send({ succee: 'adherent modifiée avec succèe.' });
         }).catch((err) => {
@@ -72,7 +72,7 @@ exports.update = (req, res) => {
         });
 }
 exports.delete = (req, res) => {
-    adherent.destroy({ where: { id_adherent: req.params.id } })
+    adherent.destroy({ where: { id_Adh: req.params.id } })
         .then((result) => {
             res.send({ succee: 'adherent supprimée avec succèe.' });
         }).catch((err) => {
@@ -86,4 +86,19 @@ exports.countAdh = (req, res) => {
         }).catch((err) => {
             res.send({ error: err.message });
         });
+}
+exports.getAllAdhNonInscrit = (req, res) => {
+    adherent.findAll({
+        attributes: ['id_Adh', 'nom_Adh', 'prenom_Adh'],
+        where: {
+            id_Adh: {
+                [Sequelize.Op.notIn]:sequelize.literal('(SELECT id_Adh FROM inscriptionadherent)')
+            }
+        }
+    })
+    .then((result) => {
+        res.send({adherents:result})
+    }).catch((err) => {
+        res.send({error:err.message})
+    });
 }
