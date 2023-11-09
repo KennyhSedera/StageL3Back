@@ -10,6 +10,14 @@ exports.create = (req, res) => {
 }
 exports.getAll = (req, res) => {
     inscription.findAll({
+        where: {
+            id_Adh: {
+                [Sequelize.Op.ne]:null
+            },
+            id_TypeAdh: {
+                [Sequelize.Op.ne]:null
+            }
+        },
         include: [
         {model: adherent, attributes: [
                 'nom_Adh',

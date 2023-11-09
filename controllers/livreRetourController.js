@@ -20,7 +20,13 @@ exports.create = (req, res) => {
 }
 
 exports.getAll = (req, res) => {
-    retour.findAlll()
+    retour.findAlll({
+        where: {
+            id_Emprunt:{
+                [Sequelize.Op.ne]: null
+            }
+        }
+    })
     .then((result) => {
         res.send({livreretour:result});
     }).catch((err) => {

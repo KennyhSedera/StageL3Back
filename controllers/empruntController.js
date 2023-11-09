@@ -24,6 +24,14 @@ exports.create = (req, res) => {
 }
 exports.getAll = (req, res) => {
     emprunt.findAll({
+        where: {
+            id_AdhInsc: {
+                [Sequelize.Op.ne]:null
+            },
+            id_Livre: {
+                [Sequelize.Op.ne]:null
+            },
+        },
         include: [
             { model: livre, attributes: ['titre_livre', 'photo_livre', 'auteur_livre'] },
             {
@@ -75,7 +83,13 @@ exports.empruntEnCours = (req, res) => {
         where: {
             retour_Emprunt: {
                 [Sequelize.Op.gt]:date
-            }
+            },
+            id_AdhInsc: {
+                [Sequelize.Op.ne]:null
+            },
+            id_Livre: {
+                [Sequelize.Op.ne]:null
+            },
         },
         include: [
             { model: livre, attributes: ['titre_livre', 'photo_livre', 'auteur_livre'] },
