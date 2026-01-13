@@ -14,7 +14,7 @@ Ce backend est une API REST construite avec Node.js/Express qui permet de gérer
 - 🔐 L’authentification 
 - 📦 La communication avec un frontend (React ou autre)
 
-L’API expose des routes pour interagir avec la base de données et supporte des opérations classiques de gestion d’une bibliothèque. :contentReference[oaicite:1]{index=1}
+L’API expose des routes pour interagir avec la base de données et supporte des opérations classiques de gestion d’une bibliothèque.
 
 ---
 
@@ -42,7 +42,7 @@ StageL3Back/
 ├── index.js # Point d’entrée de l’API
 ├── package.json # Dépendances & scripts
 ├── .gitignore
-├── vercel.json  :contentReference[oaicite:2]{index=2}
+├── vercel.json
 
 ---
 
