@@ -24,7 +24,11 @@ app.use(cookieParser());
 app.use(cors(Option));
 app.use(morgan("dev"));
 app.use(route);
-app.use("/Images", express.static("./Images"));
+
+if (process.env.NODE_ENV !== "production") {
+  app.use("/Images", express.static("./Images"));
+}
+
 app.use("/", (req, res) => {
   res.send("Accueil back");
 });
