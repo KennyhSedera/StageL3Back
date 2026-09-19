@@ -4,6 +4,6 @@ module.exports = {
     DATABASE: process.env.DB_NAME,
     Option: {
         host: process.env.HOST_URL,
-        dialect: 'pgsql',
+        dialect: 'postgres',
     }
 }
