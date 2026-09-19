@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
     config.Option
 );
 
-// initialize();
+initialize();
 
 try {
     sequelize.authenticate()
