@@ -1,19 +1,9 @@
 module.exports = {
-    USERNAME: 'root',
-    PASSWORD: 'qwerty',
-    DATABASE: 'kennyhsedera_biblioaf',
+    USERNAME: process.env.DB_USERNAME,
+    PASSWORD: process.env.DB_PASSWORD,
+    DATABASE: process.env.DB_NAME,
     Option: {
-        host: 'localhost',
-        dialect: 'mysql',
+        host: process.env.HOST_URL,
+        dialect: 'pgsql',
     }
 }
-// module.exports = {
-//     USERNAME: '327373_kennyh',
-//     PASSWORD: 'sedera2020',
-//     DATABASE: 'kennyhsedera_biblioaf',
-//     Option: {
-//         host: 'mysql-kennyhsedera.alwaysdata.net',
-//         dialect: 'mysql',
-//         port: 3306,
-//     }
-// }
